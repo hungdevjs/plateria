@@ -2,11 +2,14 @@ import passwordHash from "password-hash";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user.model.js";
-import { Errors } from "../utils/constants.js";
+import { Errors, Levels } from "../utils/constants.js";
 import {
   getDefaultBackground,
   getDefaultPot,
   getDefaultPlant,
+  getBackgroundById,
+  getPotById,
+  getPlantById,
 } from "./common.service.js";
 import { stringIsEmptyOrWhiteSpace, isFalsy } from "../utils/helpers.js";
 
@@ -69,5 +72,35 @@ export const getInfo = async (token) => {
   return {
     _id: user._id,
     email: user.email,
+  };
+};
+
+export const getUserPlant = async (userId) => {
+  const user = await User.findOne({ _id: userId }).lean();
+  if (!user) throw new Error(Errors.BadRequest);
+
+  const {
+    _id,
+    gold,
+    exp,
+    level,
+    activePlantId,
+    activePotId,
+    activeBackgroundId,
+  } = user;
+  const { min, max } = Levels[level];
+  const expRate = (exp - min) / (max - min);
+
+  const activePlant = await getPlantById(activePlantId);
+  const activePot = await getPotById(activePotId);
+  const activeBackground = await getBackgroundById(activeBackgroundId);
+
+  return {
+    _id,
+    gold,
+    expRate,
+    activePlant,
+    activePot,
+    activeBackground,
   };
 };

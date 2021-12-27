@@ -23,7 +23,17 @@ export const signUp = async (req, res) => {
 export const getInfo = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
-    const result = await accountService.getInfo(token);
+    const result = await service.getInfo(token);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+};
+
+export const getUserPlant = async (req, res) => {
+  try {
+    const { userId } = req;
+    const result = await service.getUserPlant(userId);
     res.status(200).send(result);
   } catch (err) {
     res.status(400).send(err.message);

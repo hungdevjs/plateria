@@ -4,7 +4,7 @@ import { getAccessToken } from "../utils/helpers";
 
 const api = axios.create({
   baseURL: BaseUrl,
-  timeout: 30000,
+  timeout: 0,
   headers: {
     "Content-Type": "application/json",
   },

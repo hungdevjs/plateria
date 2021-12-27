@@ -7,8 +7,7 @@ export default (req, res, next) => {
 
     const userInfo = jwt.decode(token);
 
-    req.userId = userInfo.userId;
-    req.username = userInfo.username;
+    req.userId = userInfo._id;
 
     next();
   } catch (err) {

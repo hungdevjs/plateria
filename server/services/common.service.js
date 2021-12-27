@@ -16,3 +16,18 @@ export const getDefaultBackground = async () => {
   const background = await Background.findOne({ isDefault: true }).lean();
   return background || null;
 };
+
+export const getPlantById = async (_id) => {
+  const plant = await Plant.findOne({ _id }).lean();
+  return plant || null;
+};
+
+export const getPotById = async (_id) => {
+  const pot = await Pot.findOne({ _id }).lean();
+  return pot || null;
+};
+
+export const getBackgroundById = async (_id) => {
+  const background = await Background.findOne({ _id }).lean();
+  return background || null;
+};
