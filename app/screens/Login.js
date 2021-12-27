@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
+import validator from "email-validator";
 
 import { AppContext } from "../contexts/app.context";
 
@@ -25,6 +26,8 @@ const LogIn = ({ navigation }) => {
   const validate = () => {
     if (!email || !email.trim() || !password || !password.trim())
       throw new Error("Please fill in email and password");
+
+    if (!validator.validate(email)) throw new Error("Invalid email");
   };
 
   const submit = async () => {
@@ -55,7 +58,7 @@ const LogIn = ({ navigation }) => {
         <Input
           placeholder="Email"
           value={email}
-          onChangeText={(value) => setEmail(value)}
+          onChangeText={(value) => setEmail(value.trim())}
         />
         <Input
           placeholder="Password"

@@ -7,6 +7,7 @@ import {
   Keyboard,
 } from "react-native";
 import Toast from "react-native-toast-message";
+import validator from "email-validator";
 
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
@@ -32,6 +33,8 @@ const SignUp = ({ navigation }) => {
       !password.trim()
     )
       throw new Error("Please fill in all informations");
+
+    if (!validator.validate(email)) throw new Error("Invalid email");
 
     if (password.length < 8)
       throw new Error("Password must have at least 8 characters");
@@ -73,7 +76,7 @@ const SignUp = ({ navigation }) => {
         <Input
           placeholder="Email"
           value={email}
-          onChangeText={(value) => setEmail(value)}
+          onChangeText={(value) => setEmail(value.trim())}
         />
         <Input
           placeholder="Password"
