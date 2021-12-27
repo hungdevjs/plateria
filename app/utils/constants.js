@@ -8,7 +8,7 @@ export const ScreenWidth = width < height ? width : height;
 export const ScreenHeight = width < height ? height : width;
 export const AppHeight = height - StatusBarHeight;
 
-export const BaseUrl = "http://localhost:8888/api/v1";
+export const BaseUrl = "http://10.0.2.2:8888/api/v1";
 
 export const AccessToken = "AccessToken";
 

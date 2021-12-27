@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   Image,
@@ -6,15 +6,45 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
+
+import { AppContext } from "../contexts/app.context";
 
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
 import Input from "../components/Input";
-import { Colors, Screens, Images } from "../utils/constants";
+import { Colors, Screens, Images, AccessToken } from "../utils/constants";
+import { logIn } from "../services/account.service";
 
-const Login = ({ navigation }) => {
+const LogIn = ({ navigation }) => {
+  const { setIsLoading, setUser } = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const validate = () => {
+    if (!email || !email.trim() || !password || !password.trim())
+      throw new Error("Please fill in email and password");
+  };
+
+  const submit = async () => {
+    setIsLoading(true);
+
+    try {
+      validate();
+      const res = await logIn({ email, password });
+      const { accessToken, data } = res.data;
+      await AsyncStorage.setItem(AccessToken, accessToken);
+      setUser(data);
+    } catch (err) {
+      Toast.show({
+        type: "error",
+        text1: (err.response && err.response.data) || err.message,
+      });
+    }
+
+    setIsLoading(false);
+  };
 
   return (
     <TouchableWithoutFeedback style={{ flex: 1 }} onPress={Keyboard.dismiss}>
@@ -34,9 +64,9 @@ const Login = ({ navigation }) => {
           onChangeText={(value) => setPassword(value)}
         />
         <Button
-          text="Login"
+          text="Log in"
           backgroundColor={Colors.Green}
-          onPress={() => navigation.navigate(Screens.LogIn)}
+          onPress={submit}
           style={styles.btn}
         />
       </KeyboardAvoidingView>
@@ -44,7 +74,7 @@ const Login = ({ navigation }) => {
   );
 };
 
-export default Login;
+export default LogIn;
 
 const styles = StyleSheet.create({
   container: {

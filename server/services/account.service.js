@@ -44,7 +44,8 @@ export const signUp = async (email, name, password) => {
     throw new Error(Errors.MissingInformation);
 
   const newUser = new User({
-    username,
+    name,
+    email,
     password: passwordHash.generate(password),
     plants: [defaultPlant._id],
     pots: [defaultPot._id],
