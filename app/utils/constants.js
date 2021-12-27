@@ -29,6 +29,8 @@ export const Colors = {
   White: "#fff",
   Primary: "#3b5998",
   Gray: "#999",
+  Green: "#10980D",
+  Black: "#000",
 };
 
 export const IconSize = 32;
