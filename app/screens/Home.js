@@ -5,6 +5,8 @@ import Toast from "react-native-toast-message";
 import { AppContext } from "../contexts/app.context";
 import { getUserPlant } from "../services/account.service";
 
+import Exp from "../components/Exp";
+
 const Home = () => {
   const { setIsLoading } = useContext(AppContext);
   const [data, setData] = useState(null);
@@ -33,7 +35,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <Exp level={1} expRate={67.7896} />
     </View>
   );
 };
@@ -43,5 +45,6 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 16,
   },
 });
