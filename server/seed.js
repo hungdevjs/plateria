@@ -5,7 +5,6 @@ dotenv.config();
 import Plant from "./models/plant.model.js";
 import Pot from "./models/pot.model.js";
 import Background from "./models/background.model.js";
-import User from "./models/user.model.js";
 
 import { PlantTypes, PlantLevels } from "./utils/constants.js";
 
@@ -19,34 +18,47 @@ connection.once("open", () => {
 
 const init = async () => {
   console.log("Init db...");
-  const plant = new Plant({
-    name: "Plant 1",
-    image: "",
-    type: PlantTypes.Indoor,
-    level: PlantLevels.Easy,
-    price: 100,
-    isDefault: true,
-  });
+  const defaultPlant = await Plant.findOne({ isDefault: true }).lean();
+  if (!defaultPlant) {
+    const plant = new Plant({
+      name: "Plant 1",
+      image: "",
+      type: PlantTypes.Indoor,
+      level: PlantLevels.Easy,
+      price: 100,
+      isDefault: true,
+    });
 
-  await plant.save();
+    await plant.save();
+  }
   console.log("Init default plant done!");
 
-  const pot = new Pot({
-    name: "Pot 1",
-    image: "",
-    price: 10,
-    isDefault: true,
-  });
+  const defaultPot = await Pot.findOne({ isDefault: true }).lean();
+  if (!defaultPot) {
+    const pot = new Pot({
+      name: "Pot 1",
+      image: "",
+      price: 10,
+      isDefault: true,
+    });
 
-  await pot.save();
+    await pot.save();
+  }
+
   console.log("Init default pot done!");
 
-  const background = new Background({
-    image: "",
-    price: 100,
+  const defaultBackground = await Background.findOne({
     isDefault: true,
-  });
+  }).lean();
+  if (!defaultBackground) {
+    const background = new Background({
+      image: "",
+      price: 100,
+      isDefault: true,
+    });
 
-  await background.save();
+    await background.save();
+  }
+
   console.log("Init default background done!");
 };
