@@ -121,3 +121,73 @@ export const drinkWater = async (userId) => {
   }
   await user.save();
 };
+
+export const getSettings = async (userId) => {
+  const user = await User.findOne({ _id: userId }).lean();
+  if (!user) throw new Error(Errors.BadRequest);
+
+  const {
+    _id,
+    name,
+    language,
+    instagram,
+    tiktok,
+    facebook,
+    twitter,
+    activeSocial,
+    music,
+    soundEffect,
+    dailyGoal,
+    cupVolume,
+    reminder,
+  } = user;
+
+  return {
+    _id,
+    name,
+    language,
+    instagram,
+    tiktok,
+    facebook,
+    twitter,
+    activeSocial,
+    music,
+    soundEffect,
+    dailyGoal,
+    cupVolume,
+    reminder,
+  };
+};
+
+export const updateSettings = async (userId, data) => {
+  const user = await User.findOne({ _id: userId });
+  if (!user) throw new Error(Errors.BadRequest);
+
+  const {
+    language,
+    instagram,
+    tiktok,
+    facebook,
+    twitter,
+    activeSocial,
+    music,
+    soundEffect,
+    dailyGoal,
+    cupVolume,
+    reminder,
+  } = data;
+
+  user.language = language;
+  user.instagram = instagram;
+  user.tiktok = tiktok;
+  user.facebook = facebook;
+  user.twitter = twitter;
+  user.activeSocial = activeSocial;
+  user.music = music;
+  user.soundEffect = soundEffect;
+  user.dailyGoal = dailyGoal;
+  user.cupVolume = cupVolume;
+  user.reminder = reminder;
+
+  await user.save();
+};

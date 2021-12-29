@@ -49,3 +49,23 @@ export const drinkWater = async (req, res) => {
     res.status(400).send(err.message);
   }
 };
+
+export const getSettings = async (req, res) => {
+  try {
+    const { userId } = req;
+    const result = await service.getSettings(userId);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+};
+
+export const updateSettings = async (req, res) => {
+  try {
+    const { userId } = req;
+    await service.updateSettings(userId, req.body);
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+};

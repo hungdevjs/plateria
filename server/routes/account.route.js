@@ -9,5 +9,7 @@ router.post("/signUp", controller.signUp);
 router.get("/me", controller.getInfo);
 router.get("/me/plant", auth, controller.getUserPlant);
 router.post("/drink", auth, controller.drinkWater);
+router.get("/me/settings", auth, controller.getSettings);
+router.post("/me/settings", auth, controller.updateSettings);
 
 export default router;

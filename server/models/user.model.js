@@ -41,6 +41,7 @@ const schema = new Schema({
   activePlantId: { type: String, required: true },
   activePotId: { type: String, required: true },
   activeBackgroundId: { type: String, required: true },
+  language: { type: String, default: "English" },
   createdAt: {
     type: Number,
     required: true,
