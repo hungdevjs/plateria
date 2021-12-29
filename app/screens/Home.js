@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ImageBackground, Image } from "react-native";
 import Toast from "react-native-toast-message";
 
 import { AppContext } from "../contexts/app.context";
 import { getUserPlant } from "../services/account.service";
 
 import Exp from "../components/Exp";
+import Gold from "../components/Gold";
+import HomeButtons from "../components/HomeButtons";
+import { getImageUrl } from "../utils/helpers";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const { setIsLoading } = useContext(AppContext);
   const [data, setData] = useState(null);
 
@@ -31,12 +34,50 @@ const Home = () => {
     setIsLoading(false);
   };
 
+  const onDrinkWater = async () => {};
+
   if (!data) return null;
 
   return (
-    <View style={styles.container}>
-      <Exp level={1} expRate={67.7896} />
-    </View>
+    <ImageBackground
+      resizeMode="cover"
+      source={{ uri: getImageUrl(data.activeBackground.image) }}
+      style={{ height: "100%", width: "100%" }}
+    >
+      <View style={styles.container}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 16,
+          }}
+        >
+          <Exp level={1} expRate={67.7896} />
+          <Gold gold={data.gold} />
+        </View>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            flexGrow: 1,
+          }}
+        >
+          <Image
+            source={{ uri: getImageUrl(data.activePlant.image) }}
+            style={{ height: 80, width: 80 }}
+          />
+          <Image
+            source={{ uri: getImageUrl(data.activePot.image) }}
+            style={{ height: 80, width: 80 }}
+          />
+        </View>
+        <View style={{ justifyContent: "flex-end" }}>
+          <HomeButtons navigation={navigation} onDrinkWater={onDrinkWater} />
+        </View>
+        {/* <Text>{JSON.stringify(data)}</Text> */}
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -46,5 +87,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    paddingBottom: 48,
   },
 });

@@ -6,6 +6,7 @@ import Home from "../screens/Home";
 import Profile from "../screens/Profile";
 import Setting from "../screens/Setting";
 import Store from "../screens/Store";
+import Map from "../screens/Map";
 
 import { Screens } from "../utils/constants";
 
@@ -19,6 +20,7 @@ const MainStackNavigator = () => {
       <Stack.Screen name={Screens.Setting} component={Setting} />
       <Stack.Screen name={Screens.Store} component={Store} />
       <Stack.Screen name={Screens.Customize} component={Customize} />
+      <Stack.Screen name={Screens.Map} component={Map} />
     </Stack.Navigator>
   );
 };

@@ -3,7 +3,7 @@ import { BaseUrl } from "../utils/constants";
 import { getAccessToken } from "../utils/helpers";
 
 const api = axios.create({
-  baseURL: BaseUrl,
+  baseURL: `${BaseUrl}/api/v1`,
   timeout: 0,
   headers: {
     "Content-Type": "application/json",

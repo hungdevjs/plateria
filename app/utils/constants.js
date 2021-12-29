@@ -8,7 +8,7 @@ export const ScreenWidth = width < height ? width : height;
 export const ScreenHeight = width < height ? height : width;
 export const AppHeight = height - StatusBarHeight;
 
-export const BaseUrl = "http://10.0.2.2:8888/api/v1";
+export const BaseUrl = "http://10.0.2.2:8888";
 
 export const AccessToken = "AccessToken";
 
@@ -21,6 +21,7 @@ export const Screens = {
   Profile: "Profile",
   Store: "Store",
   Customize: "Customize",
+  Map: "Map",
 };
 
 export const Colors = {
@@ -31,6 +32,7 @@ export const Colors = {
   Gray: "#999",
   Green: "#10980D",
   Black: "#000",
+  Blue: "#369bd3",
 };
 
 export const IconSize = 32;
@@ -46,4 +48,5 @@ export const Images = {
   cloud: require("../assets/images/Cloud.png"),
   plant: require("../assets/images/Plant.png"),
   title: require("../assets/images/Title.png"),
+  gold: require("../assets/images/Gold.png"),
 };
