@@ -1,9 +1,9 @@
 export const Socials = {
   Default: "",
-  Instagram: "Instagram",
-  Tiktok: "Tiktok",
-  Facebook: "Facebook",
-  Twitter: "Twitter",
+  Instagram: "instagram",
+  Tiktok: "tiktok",
+  Facebook: "facebook",
+  Twitter: "twitter",
 };
 
 export const Levels = {
