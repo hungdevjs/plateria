@@ -3,7 +3,15 @@ import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 import { Colors, FontSizes } from "../utils/constants";
 
-const Button = ({ outline, backgroundColor, color, text, onPress, style }) => {
+const Button = ({
+  outline,
+  backgroundColor,
+  color,
+  text,
+  onPress,
+  style,
+  textStyle,
+}) => {
   const renderContainerStyle = () => {
     if (outline)
       return {
@@ -20,7 +28,7 @@ const Button = ({ outline, backgroundColor, color, text, onPress, style }) => {
       style={[styles.container, renderContainerStyle(), style]}
       onPress={onPress}
     >
-      <Text style={[styles.text, color && { color }]}>{text}</Text>
+      <Text style={[styles.text, color && { color }, textStyle]}>{text}</Text>
     </TouchableOpacity>
   );
 };

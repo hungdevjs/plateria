@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import Button from "./Button";
-import { Colors, ScreenWidth, Screens } from "../utils/constants";
+import { Colors, ScreenWidth, Screens, FontSizes } from "../utils/constants";
 
 const btnSize = ScreenWidth * 0.15;
 
@@ -24,6 +24,8 @@ const HomeButtons = ({ navigation, onDrinkWater }) => {
             text="Drink water"
             backgroundColor={Colors.Blue}
             onPress={onDrinkWater}
+            style={{ borderRadius: 16 }}
+            textStyle={{ fontSize: 24 }}
           />
         </View>
       </View>
