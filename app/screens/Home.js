@@ -67,7 +67,7 @@ const Home = ({ navigation }) => {
             marginBottom: 16,
           }}
         >
-          <Exp level={1} expRate={data.expRate} />
+          <Exp level={data.level} expRate={data.expRate} />
           <Gold gold={data.gold} />
         </View>
         <View

@@ -99,6 +99,7 @@ export const getUserPlant = async (userId) => {
   return {
     _id,
     gold,
+    level,
     expRate,
     activePlant,
     activePot,
