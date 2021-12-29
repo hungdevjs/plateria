@@ -27,7 +27,7 @@ const Exp = ({ level, expRate }) => {
             left: 0,
             height: 10,
             backgroundColor: Colors.Green,
-            width: `${Math.round(expRate)}%`,
+            width: `${Math.round(expRate * 100)}%`,
           }}
         />
       </View>

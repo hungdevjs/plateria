@@ -25,11 +25,14 @@ export const PlantLevels = {
   Hard: "Hard",
 };
 
-export const WaterCoin = 300;
+export const WaterCoin = 50;
+
+export const WaterExp = 100;
 
 export const Errors = {
   BadCredential: "Bad credential",
   BadRequest: "Bad request",
   InvalidInformation: "Invalid information",
   MissingInformation: "Missing information",
+  DuplicateEmail: "Duplicate email",
 };

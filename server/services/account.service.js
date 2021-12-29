@@ -2,7 +2,6 @@ import passwordHash from "password-hash";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user.model.js";
-import { Errors, Levels } from "../utils/constants.js";
 import {
   getDefaultBackground,
   getDefaultPot,
@@ -11,6 +10,8 @@ import {
   getPotById,
   getPlantById,
 } from "./common.service.js";
+
+import { Errors, Levels, WaterCoin, WaterExp } from "../utils/constants.js";
 import { stringIsEmptyOrWhiteSpace, isFalsy } from "../utils/helpers.js";
 
 export const logIn = async (email, password) => {
@@ -37,7 +38,7 @@ export const signUp = async (email, name, password) => {
     throw new Error(Errors.InvalidInformation);
 
   const existedUser = await User.findOne({ email }).lean();
-  if (!!existedUser) throw new Error(Errors.InvalidInformation);
+  if (!!existedUser) throw new Error(Errors.DuplicateEmail);
 
   const defaultPlant = await getDefaultPlant();
   const defaultPot = await getDefaultPot();
@@ -103,4 +104,19 @@ export const getUserPlant = async (userId) => {
     activePot,
     activeBackground,
   };
+};
+
+export const drinkWater = async (userId) => {
+  const user = await User.findOne({ _id: userId });
+  if (!user) throw new Error(Errors.BadRequest);
+
+  const { max } = Levels[user.level];
+
+  user.gold = user.gold + WaterCoin;
+  user.exp = user.exp + WaterExp;
+
+  if (user.exp >= max) {
+    user.level = user.level + 1;
+  }
+  await user.save();
 };

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ImageBackground, Image } from "react-native";
 import Toast from "react-native-toast-message";
 
 import { AppContext } from "../contexts/app.context";
-import { getUserPlant } from "../services/account.service";
+import { getUserPlant, drinkWater } from "../services/account.service";
 
 import Exp from "../components/Exp";
 import Gold from "../components/Gold";
@@ -34,7 +34,21 @@ const Home = ({ navigation }) => {
     setIsLoading(false);
   };
 
-  const onDrinkWater = async () => {};
+  const onDrinkWater = async () => {
+    setIsLoading(true);
+
+    try {
+      await drinkWater();
+      await getData();
+    } catch (err) {
+      Toast.show({
+        type: "error",
+        text1: (err.response && err.response.data) || err.message,
+      });
+    }
+
+    setIsLoading(false);
+  };
 
   if (!data) return null;
 
@@ -53,7 +67,7 @@ const Home = ({ navigation }) => {
             marginBottom: 16,
           }}
         >
-          <Exp level={1} expRate={67.7896} />
+          <Exp level={1} expRate={data.expRate} />
           <Gold gold={data.gold} />
         </View>
         <View

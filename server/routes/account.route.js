@@ -8,5 +8,6 @@ router.post("/logIn", controller.logIn);
 router.post("/signUp", controller.signUp);
 router.get("/me", controller.getInfo);
 router.get("/me/plant", auth, controller.getUserPlant);
+router.post("/drink", auth, controller.drinkWater);
 
 export default router;

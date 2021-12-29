@@ -39,3 +39,13 @@ export const getUserPlant = async (req, res) => {
     res.status(400).send(err.message);
   }
 };
+
+export const drinkWater = async (req, res) => {
+  try {
+    const { userId } = req;
+    await service.drinkWater(userId);
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+};
