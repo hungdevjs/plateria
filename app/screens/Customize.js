@@ -140,7 +140,7 @@ const Customize = ({ navigation }) => {
         </Text>
       </View>
       <KeyboardAwareScrollView style={{ flexGrow: 1, padding: 16 }}>
-        <Text>{JSON.stringify(data)}</Text>
+        {/* <Text>{JSON.stringify(data)}</Text> */}
         {stuffs.map((stuff) => (
           <View
             key={stuff.name}
