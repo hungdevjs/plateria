@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, StyleSheet, ImageBackground, Image } from "react-native";
 import Toast from "react-native-toast-message";
+import { useIsFocused } from "@react-navigation/native";
 
 import { AppContext } from "../contexts/app.context";
 import { getUserPlant, drinkWater } from "../services/account.service";
@@ -14,9 +15,13 @@ const Home = ({ navigation }) => {
   const { setIsLoading } = useContext(AppContext);
   const [data, setData] = useState(null);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
-    getData();
-  }, []);
+    if (isFocused) {
+      getData();
+    }
+  }, [isFocused]);
 
   const getData = async () => {
     setIsLoading(true);
