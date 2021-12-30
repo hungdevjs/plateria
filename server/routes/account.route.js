@@ -12,5 +12,7 @@ router.post("/drink", auth, controller.drinkWater);
 router.get("/me/settings", auth, controller.getSettings);
 router.post("/me/settings", auth, controller.updateSettings);
 router.get("/me/gold", auth, controller.getUserGold);
+router.get("/me/stuffs", auth, controller.getUserStuffs);
+router.post("/me/stuffs", auth, controller.updateUserStuffs);
 
 export default router;

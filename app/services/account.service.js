@@ -11,3 +11,6 @@ export const getSettings = () => api.get(`${AccountUrl}/me/settings`);
 export const updateSettings = (data) =>
   api.post(`${AccountUrl}/me/settings`, data);
 export const getUserGold = () => api.get(`${AccountUrl}/me/gold`);
+export const getUserStuffs = () => api.get(`${AccountUrl}/me/stuffs`);
+export const updateUserStuffs = (data) =>
+  api.post(`${AccountUrl}/me/stuffs`, data);

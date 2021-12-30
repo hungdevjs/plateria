@@ -13,3 +13,9 @@ export const isFalsy = (values) => {
     return false;
   }
 };
+
+export const moveToFirst = (list, item) => {
+  if (!list.includes(item)) return [item, ...list];
+  const removedItemList = list.filter((i) => i !== item);
+  return [item, ...removedItemList];
+};

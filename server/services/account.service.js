@@ -2,6 +2,10 @@ import passwordHash from "password-hash";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user.model.js";
+import Plant from "../models/plant.model.js";
+import Pot from "../models/pot.model.js";
+import Background from "../models/background.model.js";
+
 import {
   getDefaultBackground,
   getDefaultPot,
@@ -12,7 +16,11 @@ import {
 } from "./common.service.js";
 
 import { Errors, Levels, WaterCoin, WaterExp } from "../utils/constants.js";
-import { stringIsEmptyOrWhiteSpace, isFalsy } from "../utils/helpers.js";
+import {
+  stringIsEmptyOrWhiteSpace,
+  isFalsy,
+  moveToFirst,
+} from "../utils/helpers.js";
 
 export const logIn = async (email, password) => {
   const user = await User.findOne({ email }).lean();
@@ -197,4 +205,64 @@ export const getUserGold = async (userId) => {
   if (!user) throw new Error(Errors.BadRequest);
 
   return user.gold;
+};
+
+export const getUserStuffs = async (userId) => {
+  const user = await User.findOne({ _id: userId }).lean();
+  if (!user) throw new Error(Errors.BadRequest);
+
+  const { plants, pots, backgrounds } = user;
+  const userPlants = [];
+  for (const plant of plants) {
+    const userPlant = await Plant.findOne({ _id: plant })
+      .select("_id image")
+      .lean();
+
+    userPlants.push(userPlant);
+  }
+
+  const userPots = [];
+  for (const pot of pots) {
+    const userPot = await Pot.findOne({ _id: pot }).select("_id image").lean();
+
+    userPots.push(userPot);
+  }
+
+  const userBackgrounds = [];
+  for (const background of backgrounds) {
+    const userBackground = await Background.findOne({ _id: background })
+      .select("_id image")
+      .lean();
+
+    userBackgrounds.push(userBackground);
+  }
+
+  return {
+    userPlants,
+    userPots,
+    userBackgrounds,
+  };
+};
+
+export const updateUserStuffs = async (userId, data) => {
+  const user = await User.findOne({ _id: userId });
+  if (!user) throw new Error(Errors.BadRequest);
+
+  const { activeBackgroundId, activePlantId, activePotId } = data;
+
+  if (
+    !user.backgrounds.includes(activeBackgroundId) ||
+    !user.plants.includes(activePlantId) ||
+    !user.pots.includes(activePotId)
+  )
+    throw new Error(Errors.BadRequest);
+
+  user.activePlantId = activePlantId;
+  user.plants = moveToFirst(user.plants, activePlantId);
+  user.activePotId = activePotId;
+  user.pots = moveToFirst(user.pots, activePotId);
+  user.activeBackgroundId = activeBackgroundId;
+  user.backgrounds = moveToFirst(user.backgrounds, activeBackgroundId);
+
+  await user.save();
 };

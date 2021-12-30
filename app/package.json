@@ -27,6 +27,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal": "^13.0.0",
     "react-native-safe-area-context": "^3.3.2",
+    "react-native-snap-carousel": "^3.9.1",
     "react-native-toast-message": "^2.1.1",
     "react-native-web": "0.17.1",
     "toggle-switch-react-native": "^3.3.0"
