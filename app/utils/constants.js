@@ -49,4 +49,5 @@ export const Images = {
   plant: require("../assets/images/Plant.png"),
   title: require("../assets/images/Title.png"),
   gold: require("../assets/images/Gold.png"),
+  board: require("../assets/images/Board.png"),
 };

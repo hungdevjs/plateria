@@ -39,6 +39,7 @@ const HomeButtons = ({ navigation, onDrinkWater }) => {
       >
         {btns.map((item, index) => (
           <View
+            key={index}
             style={{
               width: btnSize,
               justifyContent: index % 2 === 0 ? "flex-end" : "flex-start",
@@ -46,7 +47,6 @@ const HomeButtons = ({ navigation, onDrinkWater }) => {
             }}
           >
             <TouchableOpacity
-              key={index}
               style={{
                 width: btnSize,
                 height: btnSize,

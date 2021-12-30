@@ -49,6 +49,7 @@ const init = async () => {
           PlantLevels.Hard,
         ]),
         price: 100 * (index + 1),
+        minLevel: index,
       });
 
       await newPlant.save();
@@ -77,6 +78,7 @@ const init = async () => {
         name: `Pot ${index}`,
         image: `Pot${index}.png`,
         price: 10 * (index + 1),
+        minLevel: index,
       });
 
       await newPot.save();
@@ -107,6 +109,7 @@ const init = async () => {
       const newBackground = new Background({
         image: `Background${index}.png`,
         price: 100 * (index + 1),
+        minLevel: index,
       });
 
       await newBackground.save();

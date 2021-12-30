@@ -10,3 +10,4 @@ export const drinkWater = () => api.post(`${AccountUrl}/drink`);
 export const getSettings = () => api.get(`${AccountUrl}/me/settings`);
 export const updateSettings = (data) =>
   api.post(`${AccountUrl}/me/settings`, data);
+export const getUserGold = () => api.get(`${AccountUrl}/me/gold`);

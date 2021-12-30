@@ -191,3 +191,10 @@ export const updateSettings = async (userId, data) => {
 
   await user.save();
 };
+
+export const getUserGold = async (userId) => {
+  const user = await User.findOne({ _id: userId }).lean();
+  if (!user) throw new Error(Errors.BadRequest);
+
+  return user.gold;
+};

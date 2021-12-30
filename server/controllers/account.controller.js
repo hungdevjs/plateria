@@ -69,3 +69,13 @@ export const updateSettings = async (req, res) => {
     res.status(400).send(err.message);
   }
 };
+
+export const getUserGold = async (req, res) => {
+  try {
+    const { userId } = req;
+    const result = await service.getUserGold(userId);
+    res.status(200).send({ gold: result });
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+};

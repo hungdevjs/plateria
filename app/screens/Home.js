@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, ImageBackground, Image } from "react-native";
+import { View, StyleSheet, ImageBackground, Image } from "react-native";
 import Toast from "react-native-toast-message";
 
 import { AppContext } from "../contexts/app.context";

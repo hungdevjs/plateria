@@ -36,3 +36,9 @@ export const Errors = {
   MissingInformation: "Missing information",
   DuplicateEmail: "Duplicate email",
 };
+
+export const BuyTypes = {
+  Plant: "Plant",
+  Pot: "Pot",
+  Background: "Background",
+};
