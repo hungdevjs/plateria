@@ -14,5 +14,6 @@ router.post("/me/settings", auth, controller.updateSettings);
 router.get("/me/gold", auth, controller.getUserGold);
 router.get("/me/stuffs", auth, controller.getUserStuffs);
 router.post("/me/stuffs", auth, controller.updateUserStuffs);
+router.get("/me/profile", auth, controller.getProfile);
 
 export default router;

@@ -14,3 +14,4 @@ export const getUserGold = () => api.get(`${AccountUrl}/me/gold`);
 export const getUserStuffs = () => api.get(`${AccountUrl}/me/stuffs`);
 export const updateUserStuffs = (data) =>
   api.post(`${AccountUrl}/me/stuffs`, data);
+export const getProfile = () => api.get(`${AccountUrl}/me/profile`);

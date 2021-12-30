@@ -218,14 +218,14 @@ export const getUserStuffs = async (userId) => {
       .select("_id image")
       .lean();
 
-    userPlants.push(userPlant);
+    userPlant && userPlants.push(userPlant);
   }
 
   const userPots = [];
   for (const pot of pots) {
     const userPot = await Pot.findOne({ _id: pot }).select("_id image").lean();
 
-    userPots.push(userPot);
+    userPot && userPots.push(userPot);
   }
 
   const userBackgrounds = [];
@@ -234,7 +234,7 @@ export const getUserStuffs = async (userId) => {
       .select("_id image")
       .lean();
 
-    userBackgrounds.push(userBackground);
+    userBackground && userBackgrounds.push(userBackground);
   }
 
   return {
@@ -265,4 +265,18 @@ export const updateUserStuffs = async (userId, data) => {
   user.backgrounds = moveToFirst(user.backgrounds, activeBackgroundId);
 
   await user.save();
+};
+
+export const getProfile = async (userId) => {
+  const user = await User.findOne({ _id: userId }).lean();
+  if (!user) throw new Error(Errors.BadRequest);
+
+  const { _id, name, plants } = user;
+  const userPlants = [];
+  for (const plant of plants) {
+    const userPlant = await Plant.findOne({ _id: plant }).lean();
+    userPlant && userPlants.push(userPlant);
+  }
+
+  return { _id, name, userPlants };
 };
