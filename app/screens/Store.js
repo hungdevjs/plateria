@@ -138,6 +138,14 @@ const Store = ({ navigation }) => {
             {activeItem?.name ? ` ${activeItem.name}` : ""} with{" "}
             {activeItem?.price} gold?
           </Text>
+          <Text
+            style={{
+              marginBottom: 8,
+              fontSize: FontSizes.Normal,
+            }}
+          >
+            Min level required: {activeItem?.minLevel}
+          </Text>
           <Button
             text="Buy it"
             style={{ height: 40, marginBottom: 8 }}
@@ -156,14 +164,14 @@ const Store = ({ navigation }) => {
         gold={gold}
       />
       <KeyboardAwareScrollView style={{ flexGrow: 1 }}>
-        {/* <Text>{JSON.stringify(items)}</Text> */}
         {Array(numberOfBoard)
           .fill("")
-          .map((item, index) => (
+          .map((_item, index) => (
             <View
               key={index}
               style={{
-                marginTop: ScreenHeight * 0.15,
+                marginTop: ScreenHeight * 0.12,
+                height: ScreenHeight * 0.15,
               }}
             >
               <Image source={Images.board} />
@@ -185,7 +193,7 @@ const Store = ({ navigation }) => {
                   >
                     <Image
                       source={{ uri: getImageUrl(product.image) }}
-                      style={{ width: 60, height: 60, marginBottom: 20 }}
+                      style={{ width: 60, height: 60, marginBottom: 25 }}
                     />
                     {type !== BuyTypes.Background && (
                       <Text
