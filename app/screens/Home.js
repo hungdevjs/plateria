@@ -115,8 +115,10 @@ const Home = ({ navigation }) => {
             alignItems: "center",
             justifyContent: "center",
             flexGrow: 1,
-            marginBottom: animations.x,
-            transform: [{ scale: animations.y }],
+            transform: [
+              { scale: animations.y },
+              { translateY: (animations && -animations.x) || 0 },
+            ],
           }}
         >
           <Image
