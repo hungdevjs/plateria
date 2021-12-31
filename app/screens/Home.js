@@ -26,11 +26,13 @@ const Home = ({ navigation }) => {
     Animated.timing(animations, {
       toValue: { x: 20, y: 1.2 },
       duration: 300,
+      useNativeDriver: true,
     }).start(({ finished }) => {
       if (finished) {
         Animated.timing(animations, {
           toValue: { x: 0, y: 1 },
           duration: 300,
+          useNativeDriver: true,
         }).start();
       }
     });
