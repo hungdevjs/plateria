@@ -35,7 +35,7 @@ export const buy = async (userId, data) => {
       throw new Error(`User need to reach ${plant.minLevel} to buy this plant`);
     if (plant.price > user.gold) throw new Error("Not enough gold");
 
-    user.plants = [user.plants[0], _id, user.plants.slice(1)];
+    user.plants = [user.plants[0], _id, ...user.plants.slice(1)];
     user.gold = user.gold - plant.price;
 
     await user.save();
@@ -54,7 +54,7 @@ export const buy = async (userId, data) => {
       );
     if (pot.price > user.gold) throw new Error("Not enough gold");
 
-    user.pots = [user.pots[0], _id, user.pots.slice(1)];
+    user.pots = [user.pots[0], _id, ...user.pots.slice(1)];
     user.gold = user.gold - pot.price;
 
     await user.save();
@@ -73,7 +73,7 @@ export const buy = async (userId, data) => {
       );
     if (background.price > user.gold) throw new Error("Not enough gold");
 
-    user.backgrounds = [user.backgrounds[0], _id, user.backgrounds.slice(1)];
+    user.backgrounds = [user.backgrounds[0], _id, ...user.backgrounds.slice(1)];
     user.gold = user.gold - background.price;
 
     await user.save();
