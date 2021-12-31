@@ -1,5 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, StyleSheet, ImageBackground, Image } from "react-native";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  Animated,
+} from "react-native";
 import Toast from "react-native-toast-message";
 import { useIsFocused } from "@react-navigation/native";
 
@@ -14,6 +20,21 @@ import { getImageUrl } from "../utils/helpers";
 const Home = ({ navigation }) => {
   const { setIsLoading } = useContext(AppContext);
   const [data, setData] = useState(null);
+  const animations = useRef(new Animated.ValueXY({ x: 0, y: 1 })).current;
+
+  const animatePlant = () => {
+    Animated.timing(animations, {
+      toValue: { x: 20, y: 1.2 },
+      duration: 300,
+    }).start(({ finished }) => {
+      if (finished) {
+        Animated.timing(animations, {
+          toValue: { x: 0, y: 1 },
+          duration: 300,
+        }).start();
+      }
+    });
+  };
 
   const isFocused = useIsFocused();
 
@@ -45,6 +66,14 @@ const Home = ({ navigation }) => {
     try {
       await drinkWater();
       await getData();
+      animatePlant();
+      setTimeout(() => {
+        Toast.show({
+          type: "success",
+          text1: "Your plant is growing up!",
+          text2: "Keep it up!",
+        });
+      }, 700);
     } catch (err) {
       Toast.show({
         type: "error",
@@ -72,14 +101,20 @@ const Home = ({ navigation }) => {
             marginBottom: 16,
           }}
         >
-          <Exp level={data.level} expRate={data.expRate} />
-          <Gold gold={data.gold} />
+          <Animated.View style={{ transform: [{ scale: animations.y }] }}>
+            <Exp level={data.level} expRate={data.expRate} />
+          </Animated.View>
+          <Animated.View style={{ transform: [{ scale: animations.y }] }}>
+            <Gold gold={data.gold} />
+          </Animated.View>
         </View>
-        <View
+        <Animated.View
           style={{
             alignItems: "center",
             justifyContent: "center",
             flexGrow: 1,
+            marginBottom: animations.x,
+            transform: [{ scale: animations.y }],
           }}
         >
           <Image
@@ -90,7 +125,7 @@ const Home = ({ navigation }) => {
             source={{ uri: getImageUrl(data.activePot.image) }}
             style={{ height: 80, width: 80 }}
           />
-        </View>
+        </Animated.View>
         <View style={{ justifyContent: "flex-end" }}>
           <HomeButtons navigation={navigation} onDrinkWater={onDrinkWater} />
         </View>
