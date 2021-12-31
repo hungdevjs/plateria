@@ -100,15 +100,14 @@ const Store = ({ navigation }) => {
     setIsLoading(true);
 
     try {
+      setId(null);
       await buy({ type, _id });
       await getGold();
-      setId(null);
       Toast.show({
         type: "success",
         text1: "Buy successfully",
       });
     } catch (err) {
-      setId(null);
       Toast.show({
         type: "error",
         text1: (err.response && err.response.data) || err.message,
