@@ -43,8 +43,8 @@ export const getUserPlant = async (req, res) => {
 export const drinkWater = async (req, res) => {
   try {
     const { userId } = req;
-    await service.drinkWater(userId);
-    res.sendStatus(200);
+    const result = await service.drinkWater(userId);
+    res.status(200).send(result);
   } catch (err) {
     res.status(400).send(err.message);
   }

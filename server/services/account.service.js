@@ -1,5 +1,6 @@
 import passwordHash from "password-hash";
 import jwt from "jsonwebtoken";
+import moment from "moment";
 
 import User from "../models/user.model.js";
 import Plant from "../models/plant.model.js";
@@ -127,7 +128,33 @@ export const drinkWater = async (userId) => {
   if (user.exp >= max) {
     user.level = user.level + 1;
   }
+
+  const now = moment().format("DD/MM/YYYY");
+  let isEnough = false;
+
+  if (!user.history || !user.history.length) {
+    user.history = [{ day: now, volume: user.cupVolume }];
+    if (user.cupVolume >= user.dailyGoal) {
+      isEnough = true;
+    }
+  } else {
+    const dayHistory = user.history.find((item) => item.day === now);
+    if (dayHistory) {
+      dayHistory.volume = dayHistory.volume + user.cupVolume;
+      if (dayHistory.volume >= user.dailyGoal) {
+        isEnough = true;
+      }
+    } else {
+      user.history.push({ day: now, volume: user.cupVolume });
+      if (user.cupVolume >= user.dailyGoal) {
+        isEnough = true;
+      }
+    }
+  }
+
   await user.save();
+
+  return { isEnough };
 };
 
 export const getSettings = async (userId) => {

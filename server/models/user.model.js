@@ -42,6 +42,12 @@ const schema = new Schema({
   activePotId: { type: String, required: true },
   activeBackgroundId: { type: String, required: true },
   language: { type: String, default: "English" },
+  history: [
+    {
+      day: { type: String },
+      volume: { type: Number, default: 0 },
+    },
+  ],
   createdAt: {
     type: Number,
     required: true,

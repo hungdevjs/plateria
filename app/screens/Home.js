@@ -66,13 +66,19 @@ const Home = ({ navigation }) => {
     setIsLoading(true);
 
     try {
-      await drinkWater();
+      const res = await drinkWater();
       await getData();
       animatePlant();
+
+      const { isEnough } = res.data;
+      const text1 = isEnough
+        ? "You completed your daily goal for today"
+        : "Your plant is growing up!";
+
       setTimeout(() => {
         Toast.show({
           type: "success",
-          text1: "Your plant is growing up!",
+          text1,
           text2: "Keep it up!",
         });
       }, 700);
