@@ -141,7 +141,10 @@ export const drinkWater = async (userId) => {
     const dayHistory = user.history.find((item) => item.day === now);
     if (dayHistory) {
       dayHistory.volume = dayHistory.volume + user.cupVolume;
-      if (dayHistory.volume >= user.dailyGoal) {
+      if (
+        dayHistory.volume >= user.dailyGoal &&
+        dayHistory.volume - user.dailyGoal <= user.cupVolume
+      ) {
         isEnough = true;
       }
     } else {
